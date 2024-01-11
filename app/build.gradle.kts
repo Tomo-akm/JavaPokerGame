@@ -46,6 +46,10 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
+tasks.named("run", JavaExec::class.java) {
+    standardInput = System.`in`
+}
+
 tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "Main"
