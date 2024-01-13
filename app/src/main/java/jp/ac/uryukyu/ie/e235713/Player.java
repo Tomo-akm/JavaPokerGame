@@ -47,7 +47,7 @@ public class Player {
     }
 
     public void showScore() {
-        System.out.println(name + "'s current score is :" + this.score);
+        System.out.println(name + "'s current score is :" + this.score + "\n");
     }
 
     public void setCurrentBet(int bet) {
@@ -63,5 +63,10 @@ public class Player {
         for (Card card : this.hand) {
             System.out.println(card.getSuit() + " " +card.getRank());
         }
+        System.out.println();
+    }
+
+    public void clearHand() {
+        hand.clear();
     }
 }

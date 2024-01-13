@@ -24,7 +24,7 @@ public class Deck {
         Collections.shuffle(this.cards);
     }
 
-    public Card deal() {
+    public Card deal() {   //デッキの１番最後のカードを取り出し、カードの属性を返す。
         return this.cards.remove(this.cards.size() - 1); 
     }
 
