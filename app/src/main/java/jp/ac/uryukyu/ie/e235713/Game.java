@@ -11,12 +11,14 @@ public class Game {
     private ArrayList<Card> communityCard;
     private Player player;
     private Bot bot;
+    private GameController gameController;  
     private int pot;
     private int currentTurnPot;
 
-    public Game(Player _player, Bot _bot) {
+    public Game(Player _player, Bot _bot, GameController gameController) {
         this.deck = new Deck();
         this.communityCard = new ArrayList<Card>();
+        this.gameController = gameController;
         this.player = _player;
         this.bot = _bot;
 
@@ -132,16 +134,17 @@ public class Game {
         if (!player.getStatus()) {
             System.out.println(bot.getName() + " wins because " + player.getName() + " has folded.\n");
             bot.setScore(bot.getScore() + pot);
-            player.showScore();
-            bot.showScore();
-            System.exit(0);  // ゲームを終了
         } else if (!bot.getStatus()) {
             System.out.println(player.getName() + " wins because " + bot.getName() + " has folded.\n");
             player.setScore(player.getScore() + pot);
-            player.showScore();
-            bot.showScore();
-            System.exit(0);  // ゲームを終了
         }
+        
+        player.showScore();
+        bot.showScore();
+        player.saveScore("src/main/resources/playerScore.txt");
+        bot.saveScore("src/main/resources/botScore.txt");
+        // 勝者をチェックした後にcontinueActionメソッドを呼び出す
+        gameController.continueAction();
     }    
 
     public int remainCard() {

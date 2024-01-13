@@ -1,5 +1,7 @@
 package jp.ac.uryukyu.ie.e235713;
 
+import java.util.Scanner;
+
 public class GameController {
     private Game game;
     private Player player1;
@@ -8,7 +10,7 @@ public class GameController {
     public GameController() {
         this.player1 = new Player("Player", "src/main/resources/playerScore.txt");
         this.bot1 = new Bot("Bot", "src/main/resources/botScore.txt");
-        this.game = new Game(player1, bot1);
+        this.game = new Game(player1, bot1, this);
     }
 
     public void startGame() {
@@ -38,6 +40,31 @@ public class GameController {
         bot1.showScore();
         player1.saveScore("src/main/resources/playerScore.txt");
         bot1.saveScore("src/main/resources/botScore.txt");
+
+        continueAction();
+    }
+
+    public void resetGame() {
+        player1.resetData();
+        bot1.resetData();
+        game = new Game(player1, bot1, this);
+
+        startGame();
+    }
+
+    public void continueAction() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("You want continue?:\n1. Continue\n2. Exit from the game\n");
+        int action = scanner.nextInt();
+
+        if (action == 1) {
+            System.out.println("Continue! Let's go next game!\n----------------------------------------------------------------\n");
+            resetGame();
+        }else if (action == 2) {
+            System.out.println("Game Over! Thank you for playing.");
+            System.exit(0);  // ゲームを終了
+        }
 
     }
 

@@ -105,4 +105,9 @@ public class Player {
         }
         System.out.println();
     }
+
+    public void resetData() {
+        setStatus(true);
+        this.hand = new ArrayList<Card>();
+    }
 }
