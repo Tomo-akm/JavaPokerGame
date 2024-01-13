@@ -74,10 +74,9 @@ public class Game {
     }    
 
     public void call(Player _player) {
-        int additionalCallAmount = currentTurnPot - _player.getCurrentBet();  // 追加のコール額を計算
-        if (_player.getScore() >= additionalCallAmount) {
-            _player.setScore(_player.getScore() - additionalCallAmount);  // プレイヤーのスコアから追加のコール額を差し引く
-            this.pot += additionalCallAmount;  // ポットに追加のコール額を追加
+        if (_player.getScore() >= currentTurnPot) {
+            _player.setScore(_player.getScore() - currentTurnPot);  // プレイヤーのスコアから追加のコール額を差し引く
+            this.pot += currentTurnPot;  // ポットに追加のコール額を追加
             currentTurnPot = 0; //ここで、ターンは変わるので0にリセット
             System.out.println(_player.getName() + " calls.\n");
         } else {
@@ -151,39 +150,39 @@ public class Game {
     
     public void playerAction() {
         Scanner scanner = new Scanner(System.in);
-            if (currentTurnPot == 0) {
-                System.out.println("Choose an action:\n1. Bet\n2. Check\n3. Fold\n4. Check Score");
-            } else {
-                System.out.println("Choose an action:\n1. Call\n2. Fold\n3. Check Score");
+        if (currentTurnPot == 0) {
+            System.out.println("Choose an action:\n1. Bet\n2. Check\n3. Fold\n4. Check Score");
+        } else {
+            System.out.println("Choose an action:\n1. Call\n2. Fold\n3. Check Score");
+        }
+        int action = scanner.nextInt();
+        if (currentTurnPot == 0) {
+            if (action == 1) {
+                bet(player, null);
             }
-            int action = scanner.nextInt();
-            if (currentTurnPot == 0) {
-                if (action == 1) {
-                    bet(player, null);
-                }
-                else if (action == 2) {
-                    check(player);
-                } else if (action == 3) {
-                    fold(player);
-                } else if (action == 4) {
-                    player.showScore();
-                    playerAction();
-                } else {
-                    System.out.println("Invalid action. Choose a number between 1 and 4."); playerAction();
-                }
+            else if (action == 2) {
+                check(player);
+            } else if (action == 3) {
+                fold(player);
+            } else if (action == 4) {
+                player.showScore();
+                playerAction();
             } else {
-                if (action == 1) {
-                    call(player);
-                } else if (action == 2) {
-                    fold(player);
-                } else if (action == 3) {
-                    player.showScore();
-                    playerAction();
-                } else {
-                    System.out.println("Invalid action. Choose a number between 1 and 4."); playerAction();
-                }
+                System.out.println("Invalid action. Choose a number between 1 and 4."); playerAction();
+            }
+        } else {
+            if (action == 1) {
+                call(player);
+            } else if (action == 2) {
+                fold(player);
+            } else if (action == 3) {
+                player.showScore();
+                playerAction();
+            } else {
+                System.out.println("Invalid action. Choose a number between 1 and 4."); playerAction();
             }
         }
+    }
 
     public void botAction() {
         Random random = new Random();
