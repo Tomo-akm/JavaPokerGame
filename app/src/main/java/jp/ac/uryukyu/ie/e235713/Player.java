@@ -1,6 +1,11 @@
 package jp.ac.uryukyu.ie.e235713;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class Player {
     private String name;
@@ -9,11 +14,12 @@ public class Player {
     private boolean status;
     private int currentBet;
 
-    public Player(String _name) {
+    public Player(String _name, String fileName) {
         this.name = _name;
-        this.score = 10000;
         this.hand = new ArrayList<Card>();
         this.status = true;
+
+        loadScore(fileName);
     }
 
     // 手札にカードを追加するメソッド、手札の評価を行うメソッドなど
@@ -46,6 +52,40 @@ public class Player {
         return this.score;
     }
 
+    // スコアをファイルから読み込むメソッド
+    public void loadScore(String filename) {
+        try (Scanner scanner = new Scanner(new File(filename))) {
+            if (scanner.hasNextInt()) {
+                // scoreが0の時、10000にリセットする。
+                this.score = scanner.nextInt();
+                if (this.score == 0) {
+                    this.score = 10000;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Score file not found: " + e.getMessage());
+        }
+    }
+    
+    // スコアをファイルに書き込むメソッド
+    public void saveScore(String filename) {
+        try {
+            // ファイルの現在の内容を読み込む
+            List<String> lines = new ArrayList<>(Files.readAllLines(Paths.get(filename)));
+
+            // 1行目を上書きする（スコアで）
+            if (!lines.isEmpty()) {
+                lines.set(0, String.valueOf(this.score));
+            } else {
+                lines.add(String.valueOf(this.score));
+            }
+
+            // 内容を再度ファイルに書き込む
+            Files.write(Paths.get(filename), lines);
+        } catch (IOException e) {
+            System.out.println("Unable to save score: " + e.getMessage());
+        }
+    }
     public void showScore() {
         System.out.println(name + "'s current score is :" + this.score + "\n");
     }
@@ -64,9 +104,5 @@ public class Player {
             System.out.println(card.getSuit() + " " +card.getRank());
         }
         System.out.println();
-    }
-
-    public void clearHand() {
-        hand.clear();
     }
 }

@@ -6,8 +6,8 @@ public class GameController {
     private Bot bot1;
 
     public GameController() {
-        this.player1 = new Player("Player");
-        this.bot1 = new Bot("Bot");
+        this.player1 = new Player("Player", "src/main/resources/playerScore.txt");
+        this.bot1 = new Bot("Bot", "src/main/resources/botScore.txt");
         this.game = new Game(player1, bot1);
     }
 
@@ -36,6 +36,8 @@ public class GameController {
         System.out.println(game.determineWinner() + "\n");
         player1.showScore();
         bot1.showScore();
+        player1.saveScore("src/main/resources/playerScore.txt");
+        bot1.saveScore("src/main/resources/botScore.txt");
 
     }
 
