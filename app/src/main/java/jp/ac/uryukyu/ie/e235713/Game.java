@@ -176,7 +176,7 @@ public class Game {
                 player.showScore();
                 playerAction();
             } else {
-                System.out.println("Invalid action. Choose a number between 1 and 4."); playerAction();
+                System.err.println("Invalid action. Choose a number between 1 and 4.\n"); playerAction();
             }
         } else {
             if (action == 1) {
@@ -187,7 +187,7 @@ public class Game {
                 player.showScore();
                 playerAction();
             } else {
-                System.out.println("Invalid action. Choose a number between 1 and 4."); playerAction();
+                System.err.println("Invalid action. Choose a number between 1 and 3.\n"); playerAction();
             }
         }
     }

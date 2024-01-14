@@ -7,9 +7,9 @@ public class GameController {
     private Player player1;
     private Bot bot1;
 
-    public GameController() {
-        this.player1 = new Player("Player", "src/main/resources/playerScore.txt");
-        this.bot1 = new Bot("Bot", "src/main/resources/botScore.txt");
+    public GameController(Player player, Bot bot) {
+        this.player1 = player;
+        this.bot1 = bot;
         this.game = new Game(player1, bot1, this);
     }
 
@@ -29,8 +29,12 @@ public class GameController {
             } else {
                 game.turnAndRiver();
             }
-
-            game.showCommunityCard();
+            if (i < 3) {
+                game.showCommunityCard();
+            } else {
+                System.out.println("--------------------------------");
+                System.out.println("Showdown:\n");
+            }
         }
 
         System.out.println("Player's hand is :" + HandEvaluator.evaluateHand(player1, game));
@@ -49,21 +53,24 @@ public class GameController {
         bot1.resetData();
         game = new Game(player1, bot1, this);
 
-        startGame();
     }
 
     public void continueAction() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("You want continue?:\n1. Continue\n2. Exit from the game\n");
+        System.out.println("CONTINUE?\n1. Continue\n2. Exit from the game\n");
         int action = scanner.nextInt();
 
         if (action == 1) {
             System.out.println("Continue! Let's go next game!\n----------------------------------------------------------------\n");
             resetGame();
+            startGame();
         }else if (action == 2) {
             System.out.println("Game Over! Thank you for playing.");
             System.exit(0);  // ゲームを終了
+        }else {
+            System.err.println("Invalid action. Choose a number between 1 or 2.\n");
+            continueAction();
         }
 
     }
