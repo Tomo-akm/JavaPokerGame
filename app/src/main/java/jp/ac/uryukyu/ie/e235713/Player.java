@@ -54,7 +54,17 @@ public class Player {
 
     // スコアをファイルから読み込むメソッド
     public void loadScore(String filename) {
-        try (Scanner scanner = new Scanner(new File(filename))) {
+        File file = new File(filename);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                saveScore(filename);
+            } catch (IOException e) {
+                System.out.println("Error creating new file: " + e.getMessage());
+            }
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
             if (scanner.hasNextInt()) {
                 // scoreが0の時、10000にリセットする。
                 this.score = scanner.nextInt();
@@ -63,10 +73,11 @@ public class Player {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Score file not found: " + e.getMessage());
+            System.out.println("Unexpected error: Score file not found after creation: " + e.getMessage());
         }
+        saveScore(filename);
     }
-    
+
     // スコアをファイルに書き込むメソッド
     public void saveScore(String filename) {
         try {
@@ -83,9 +94,11 @@ public class Player {
             // 内容を再度ファイルに書き込む
             Files.write(Paths.get(filename), lines);
         } catch (IOException e) {
+
             System.out.println("Unable to save score: " + e.getMessage());
         }
     }
+    
     public void showScore() {
         System.out.println(name + "'s current score is :" + this.score + "\n");
     }
