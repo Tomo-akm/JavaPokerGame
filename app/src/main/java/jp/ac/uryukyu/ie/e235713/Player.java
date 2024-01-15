@@ -13,13 +13,15 @@ public class Player {
     private int score;
     private boolean status;
     private int currentBet;
+    private String fileName;
 
     public Player(String _name, String fileName) {
         this.name = _name;
         this.hand = new ArrayList<Card>();
         this.status = true;
+        this.fileName = fileName;
 
-        loadScore(fileName);
+        loadScore();
     }
 
     // 手札にカードを追加するメソッド、手札の評価を行うメソッドなど
@@ -53,12 +55,12 @@ public class Player {
     }
 
     // スコアをファイルから読み込むメソッド
-    public void loadScore(String filename) {
-        File file = new File(filename);
+    public void loadScore() {
+        File file = new File(getPath());
         if (!file.exists()) {
             try {
                 file.createNewFile();
-                saveScore(filename);
+                saveScore();
             } catch (IOException e) {
                 System.out.println("Error creating new file: " + e.getMessage());
             }
@@ -75,14 +77,14 @@ public class Player {
         } catch (FileNotFoundException e) {
             System.out.println("Unexpected error: Score file not found after creation: " + e.getMessage());
         }
-        saveScore(filename);
+        saveScore();
     }
 
     // スコアをファイルに書き込むメソッド
-    public void saveScore(String filename) {
+    public void saveScore() {
         try {
             // ファイルの現在の内容を読み込む
-            List<String> lines = new ArrayList<>(Files.readAllLines(Paths.get(filename)));
+            List<String> lines = new ArrayList<>(Files.readAllLines(Paths.get(getPath())));
 
             // 1行目を上書きする（スコアで）
             if (!lines.isEmpty()) {
@@ -92,11 +94,15 @@ public class Player {
             }
 
             // 内容を再度ファイルに書き込む
-            Files.write(Paths.get(filename), lines);
+            Files.write(Paths.get(getPath()), lines);
         } catch (IOException e) {
 
             System.out.println("Unable to save score: " + e.getMessage());
         }
+    }
+
+    public String getPath() {
+        return fileName;
     }
     
     public void showScore() {

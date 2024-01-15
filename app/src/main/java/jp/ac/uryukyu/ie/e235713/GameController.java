@@ -42,8 +42,8 @@ public class GameController {
         System.out.println(game.determineWinner() + "\n");
         player1.showScore();
         bot1.showScore();
-        player1.saveScore("src/main/resources/playerScore.txt");
-        bot1.saveScore("src/main/resources/botScore.txt");
+        player1.saveScore();
+        bot1.saveScore();
 
         continueAction();
     }

@@ -132,21 +132,23 @@ public class Game {
 
     public void checkWinner() {
         if (!player.getStatus()) {
+            System.out.println("--------------------------------");
             System.out.println(bot.getName() + " wins because " + player.getName() + " has folded.\n");
             bot.setScore(bot.getScore() + pot);
             player.showScore();
             bot.showScore();
-            player.saveScore("src/main/resources/playerScore.txt");
-            bot.saveScore("src/main/resources/botScore.txt");
+            player.saveScore();
+            bot.saveScore();
             // 勝者をチェックした後にcontinueActionメソッドを呼び出す
             gameController.continueAction();            
         } else if (!bot.getStatus()) {
+            System.out.println("--------------------------------");
             System.out.println(player.getName() + " wins because " + bot.getName() + " has folded.\n");
             player.setScore(player.getScore() + pot);
             player.showScore();
             bot.showScore();
-            player.saveScore("src/main/resources/playerScore.txt");
-            bot.saveScore("src/main/resources/botScore.txt");
+            player.saveScore();
+            bot.saveScore();
             // 勝者をチェックした後にcontinueActionメソッドを呼び出す
             gameController.continueAction();
         }
