@@ -8,8 +8,8 @@ class ResetGameTest {
     @Test
     void resetGameTest () {
         Deck testDeck = new Deck();
-        Player player1 = new Player("Player", "src/test/resources/playerScoreTest.txt");
-        Bot bot1 = new Bot("Bot", "src/test/resources/botScoreTest.txt");
+        Player player1 = new Player("Player");
+        Bot bot1 = new Bot("Bot");
 
         GameController gameController1 = new GameController(player1, bot1);
         GameController gameController2 = new GameController(player1, bot1);
@@ -28,7 +28,7 @@ class ResetGameTest {
             player1.setHand(testDeck.deal());
 
             g.resetGame();
-            
+
             assertEquals(true, player1.getHand().isEmpty());
         }
     }    

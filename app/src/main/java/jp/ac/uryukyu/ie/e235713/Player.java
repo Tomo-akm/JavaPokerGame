@@ -13,13 +13,11 @@ public class Player {
     private int score;
     private boolean status;
     private int currentBet;
-    private String fileName;
 
-    public Player(String _name, String fileName) {
+    public Player(String _name) {
         this.name = _name;
         this.hand = new ArrayList<Card>();
         this.status = true;
-        this.fileName = fileName;
 
         loadScore();
     }
@@ -102,7 +100,15 @@ public class Player {
     }
 
     public String getPath() {
-        return fileName;
+        String currentDir = System.getProperty("user.dir");
+        String playerScorePath;
+       // アプリケーションがJARファイルとして実行されているかどうかを判断
+       if (Player.class.getResource("Player.class").toString().startsWith("jar:")) {
+        playerScorePath = currentDir + "/app/src/main/resources/playerScore.txt";
+    } else {
+        playerScorePath = currentDir + "/src/main/resources/playerScore.txt";
+    }
+        return playerScorePath;
     }
     
     public void showScore() {
