@@ -14,10 +14,9 @@ public class Card {
     private String rank;
 
     /**
-     * コンストラクタ
-     * 
-     * @param suit
-     * @param rank
+     * Cardクラスのコンストラクタ。
+     * @param suit カードのスートを表す文字列。
+     * @param rank カードのランクを表す文字列。
      */
     public Card(String suit, String rank) {
         this.suit = suit;

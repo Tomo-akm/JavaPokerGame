@@ -45,7 +45,7 @@ public class Game {
      * デッキを生成し、シャッフルする。
      * @param _player Playerクラスのオブジェクト。
      * @param _bot　Botクラスのオブジェクト。
-     * @param gameController　GameControllerクラスのオブジェクト。
+     * @param _gameController　GameControllerクラスのオブジェクト。
      */
     public Game(Player _player, Bot _bot, GameController _gameController) {
         this.deck = new Deck();
