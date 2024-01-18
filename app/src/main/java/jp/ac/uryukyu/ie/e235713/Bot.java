@@ -1,11 +1,23 @@
 package jp.ac.uryukyu.ie.e235713;
 
+/**
+ * ポーカーゲームのボットプレイヤーを表現するクラス。
+ * Playerクラスを継承しています。
+ */
 public class Bot extends Player{
     
+    /**
+     * Botクラスのコンストラクタ。
+     * @param name ボットプレイヤーの名前。
+     */    
     public Bot(String name) {
         super(name);
     }
 
+    /**
+     * ボットプレイヤーのスコアファイルのパスを返すメソッド。
+     * @return ボットプレイヤーのスコアファイルのパス。
+     */    
     @Override
     public String getPath() {
         String currentDir = System.getProperty("user.dir");

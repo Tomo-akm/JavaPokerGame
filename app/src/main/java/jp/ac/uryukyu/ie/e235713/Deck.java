@@ -3,13 +3,23 @@ package jp.ac.uryukyu.ie.e235713;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * 52枚のカードを作成するクラス。
+ * カードをシャッフル、ディールする。
+ */
 public class Deck {
+    /**
+     * 52枚のカードを格納するArrayList。
+     */
     private ArrayList<Card> cards;
 
+    /**
+     * Deckクラスのコンストラクタ。
+     * 52枚のカードを生成してcardsに追加します。
+     */
     public Deck() {
         this.cards = new ArrayList<Card>();
 
-        // 52枚のカードを生成してデッキに追加する
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
         String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
         
@@ -20,15 +30,18 @@ public class Deck {
         }
     }
 
+    /**
+     * デッキのカードをシャッフルするメソッド。
+     */
     public void shuffle() {
         Collections.shuffle(this.cards);
     }
 
-    public Card deal() {   //デッキの１番最後のカードを取り出し、カードの属性を返す。
+    /**
+     * デッキの一番最後のカードを取り出し、そのカードを返します。
+     * @return 取り出されたカード
+     */
+    public Card deal() {
         return this.cards.remove(this.cards.size() - 1); 
-    }
-
-    public ArrayList<Card> getCards() {
-        return this.cards;
     }
 }

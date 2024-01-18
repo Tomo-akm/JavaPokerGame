@@ -2,24 +2,74 @@ package jp.ac.uryukyu.ie.e235713;
 
 import java.util.ArrayList;
 
+/**
+ * ポーカーにおける手札を評価するメソッド。
+ * ポーカーの役を表す定数とスートを表す定数を持ちます。
+ */
 public class HandEvaluator {
-    // ポーカーの役を表す定数
+    /**
+     * ロイヤルフラッシュを表す定数。
+     */
     public static final String ROYAL_FLUSH = "Royal Flush";
+    /**
+     * ストレートフラッシュを表す定数。
+     */
     public static final String STRAIGHT_FLUSH = "Straight Flush";
+    /**
+     * フォーカードを表す定数。
+     */
     public static final String FOUR_OF_A_KIND = "Four of a Kind";
+    /**
+     * フルハウスを表す定数。
+     */
     public static final String FULL_HOUSE = "Full House";
+    /**
+     * フラッシュを表す定数。
+     */
     public static final String FLUSH = "Flush";
+    /**
+     * ストレートを表す定数。
+     */
     public static final String STRAIGHT = "Straight";
+    /**
+     * スリーカードを表す定数。
+     */
     public static final String THREE_OF_A_KIND = "Three of a Kind";
+    /**
+     * ツーペアを表す定数。
+     */
     public static final String TWO_PAIR = "Two Pair";
+    /**
+     * ワンペアを表す定数。
+     */
     public static final String ONE_PAIR = "One Pair";
+    /**
+     * ハイカードを表す定数。
+     */
     public static final String HIGH_CARD = "High Card";
-    // ポーカーのスートを表す定数
+    /**
+     * スペードのスートを表す定数。
+     */
     private static final String SPADES = "Spades";
+    /**
+     * ハートのスートを表す定数。
+     */
     private static final String HEARTS = "Hearts";
+    /**
+     * ダイヤモンドのスートを表す定数。
+     */
     private static final String DIAMONDS = "Diamonds";
+    /**
+     * クラブのスートを表す定数。
+     */
     private static final String CLUBS = "Clubs";
 
+    /**
+     * プレイヤーの手札を評価します。
+     * @param player 評価するPlayerクラスのオブジェクト。
+     * @param game 現在のGameクラスのオブジェクト。
+     * @return プレイヤーの手札の役を表す文字列。
+     */    
     public static String evaluateHand(Player player, Game game) {
         if (isRoyalFlush(getAllCards(player, game))) {
             return ROYAL_FLUSH;
@@ -44,7 +94,12 @@ public class HandEvaluator {
         }
     }
 
-    //手札と場にあるカードをまとめたリストを生成
+    /**
+     * プレイヤーの手札と場にあるカードをまとめたリストを生成するメソッド。
+     * @param player 手札を取得するプレイヤーのオブジェクト。
+     * @param game 現在のゲームのオブジェクト。
+     * @return プレイヤーの手札と場にあるカードをまとめたリスト。
+     */    
     public static ArrayList<Card> getAllCards(Player player,Game game) {
         ArrayList<Card> allCards = new ArrayList<Card>();
         allCards.addAll(player.getHand());
@@ -52,9 +107,12 @@ public class HandEvaluator {
         return allCards;
     }
 
+    /**
+     * 手札がロイヤルフラッシュであるかどうかを判定するメソッド。
+     * @param allCards 判定するカードのリスト。
+     * @return 手札がロイヤルフラッシュである場合はtrue、そうでない場合はfalse。
+     */    
     private static boolean isRoyalFlush(ArrayList<Card> allCards) {
-        // 同じスートのカードが5枚存在し、それらが10からエースの連続したランクを持つ場合、
-        // ロイヤルフラッシュと判定する
         if (allCards.size() < 5) {
             return false;
         }
@@ -99,6 +157,11 @@ public class HandEvaluator {
         return false;
     }
     
+    /**
+     * 手札がストレートフラッシュであるかどうかを判定するメソッド。
+     * @param allCards 判定するカードのリスト。
+     * @return 手札がストレートフラッシュである場合はtrue、そうでない場合はfalse。
+     */    
     private static boolean isStraightFlush(ArrayList<Card> allCards) {
         if (isFlush(allCards) && (isStraight(allCards))) {
             return true;
@@ -106,6 +169,11 @@ public class HandEvaluator {
         return false;
     }
 
+    /**
+     * 手札がフォーカードであるかどうかを判定するメソッド。
+     * @param allCards 判定するカードのリスト。
+     * @return 手札がフォーカードである場合はtrue、そうでない場合はfalse。
+     */    
     private static boolean isFourOfAKind(ArrayList<Card> allCards) {
         if (allCards.size() < 4) {
             return false;
@@ -126,8 +194,12 @@ public class HandEvaluator {
         return false;
     }
 
+    /**
+     * 手札がフルハウスであるかどうかを判定するメソッド。
+     * @param allCards 判定するカードのリスト。
+     * @return 手札がフルハウスである場合はtrue、そうでない場合はfalse。
+     */    
     private static boolean isFullHouse(ArrayList<Card> allCards) {
-        // 同じランクのカードが3枚と2枚存在する場合、フルハウスと判定します。
         if (allCards.size() < 5) {
             return false;
         }
@@ -158,6 +230,11 @@ public class HandEvaluator {
         return false;  
     }
 
+    /**
+     * 手札がフラッシュであるかどうかを判定するメソッド。
+     * @param allCards 判定するカードのリスト。
+     * @return 手札がフラッシュである場合はtrue、そうでない場合はfalse。
+     */    
     private static boolean isFlush(ArrayList<Card> allCards) {     
         if (allCards.size() < 5) {
             return false;
@@ -193,6 +270,11 @@ public class HandEvaluator {
         return false;
     }
 
+    /**
+     * 手札がストレートであるかどうかを判定するメソッド。
+     * @param allCards 判定するカードのリスト。
+     * @return 手札がストレートである場合はtrue、そうでない場合はfalse。
+     */    
     public static boolean isStraight(ArrayList<Card> allCards) {
         if (allCards.size() < 5) {
             return false;
@@ -238,6 +320,11 @@ public class HandEvaluator {
         return false;
     }
 
+    /**
+     * 手札がスリーカードであるかどうかを判定するメソッド。
+     * @param allCards 判定するカードのリスト。
+     * @return 手札がスリーカードである場合はtrue、そうでない場合はfalse。
+     */    
     private static boolean isThreeOfAKind(ArrayList<Card> allCards) {
         if (allCards.size() < 3) {
             return false;
@@ -258,6 +345,11 @@ public class HandEvaluator {
         return false;
     }
 
+    /**
+     * 手札がツーペアであるかどうかを判定するメソッド。
+     * @param allCards 判定するカードのリスト。
+     * @return 手札がツーペアである場合はtrue、そうでない場合はfalse。
+     */
     private static boolean isTwoPair(ArrayList<Card> allCards) {
         if (allCards.size() < 4) {
             return false;
@@ -301,6 +393,11 @@ public class HandEvaluator {
         return pairCount == 2;    
     }
 
+    /**
+     * 手札がワンペアであるかどうかを判定するメソッド。
+     * @param allCards 判定するカードのリスト。
+     * @return 手札がワンペアである場合はtrue、そうでない場合はfalse。
+     */
     private static boolean isOnePair(ArrayList<Card> allCards) {
         if (allCards.size() < 2) {
             return false;

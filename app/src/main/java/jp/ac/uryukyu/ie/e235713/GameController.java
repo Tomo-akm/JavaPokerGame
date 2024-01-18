@@ -2,17 +2,39 @@ package jp.ac.uryukyu.ie.e235713;
 
 import java.util.Scanner;
 
+/**
+ * ポーカーゲーム全体の制御を担当するクラス。
+ * ゲーム、プレイヤー、ボットのクラスを管理します。
+ */
 public class GameController {
+    /**
+     * Gameクラスのオブジェクト。
+     */
     private Game game;
+    /**
+     * Playerクラスのオブジェクト。
+     */
     private Player player1;
+    /**
+     * Botクラスのオブジェクト。
+     */
     private Bot bot1;
 
+    /**
+     * GameControllerクラスのコンストラクタ。
+     * @param player Playerクラスのオブジェクト。
+     * @param bot Botクラスのオブジェクト。
+     */    
     public GameController(Player player, Bot bot) {
         this.player1 = player;
         this.bot1 = bot;
         this.game = new Game(player1, bot1, this);
     }
 
+    /**
+     * ゲームを開始するメソッド。
+     * プレイヤーとボットに手札を配り、各ターンでアクションを実行し、勝者まで判定します。
+     */    
     public void startGame() {
         game.addHand(player1);
         game.addHand(bot1);
@@ -26,7 +48,7 @@ public class GameController {
 
             if (i == 0) {
                 game.frop();
-            } else {
+            } else if(i < 3){
                 game.turnAndRiver();
             }
             if (i < 3) {
@@ -48,6 +70,10 @@ public class GameController {
         continueAction();
     }
 
+    /**
+     * ゲームをリセットするメソッド。
+     * プレイヤーとボットのデータをリセットし、新しいゲームを開始します。
+     */
     public void resetGame() {
         player1.resetData();
         bot1.resetData();
@@ -55,6 +81,9 @@ public class GameController {
 
     }
 
+    /**
+     * プレイヤーにゲームを続けるか終了するかを選択するメソッド。
+     */
     public void continueAction() {
         Scanner scanner = new Scanner(System.in);
 

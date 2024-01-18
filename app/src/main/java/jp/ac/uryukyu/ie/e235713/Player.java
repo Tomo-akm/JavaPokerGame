@@ -7,13 +7,32 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * ポーカーゲームのプレイヤーを表現するクラス。
+ * プレイヤーの名前、手札、スコア、ステータス、現在のベット額を管理します。
+ */
 public class Player {
+    /**
+     * プレイヤーの名前を表すString。
+     */
     private String name;
+    /**
+     * プレイヤーの手札を表すArrayList。
+     */
     private ArrayList<Card> hand;
+    /**
+     * プレイヤーの手持ちスコアを表すint。
+     */
     private int score;
+    /**
+     * プレイヤーの参加状況を表すboolean。
+     */
     private boolean status;
-    private int currentBet;
 
+    /**
+     * Playerクラスのコンストラクタ。
+     * @param _name プレイヤーの名前。
+     */    
     public Player(String _name) {
         this.name = _name;
         this.hand = new ArrayList<Card>();
@@ -22,37 +41,83 @@ public class Player {
         loadScore();
     }
 
-    // 手札にカードを追加するメソッド、手札の評価を行うメソッドなど
-
+    /**
+     * プレイヤーの名前を返すメソッド。
+     * @return プレイヤーの名前。
+     */
     public String getName() {
         return this.name;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    /**
+     * プレイヤーのステータスを設定するメソッド。
+     * @param _status 設定するステータスの値,ブール値
+     */    
+    public void setStatus(boolean _status) {
+        this.status = _status;
     }
 
+    /**
+     * プレイヤーのステータスを返すメソッド。
+     * @return プレイヤーのステータスの値,ブール値。
+     */
     public boolean getStatus() {
         return this.status;
     }
 
+    /**
+     * プレイヤーのハンドにカードを追加するメソッド。
+     * @param card 追加するカードのオブジェクト。
+     */
     public void setHand(Card card){
         hand.add(new Card(card.getSuit(), card.getRank()));
     }
 
+    /**
+     * プレイヤーの手札を返すメソッド。
+     * @return プレイヤーのハンドを表すArrayList。
+     */    
     public ArrayList<Card> getHand() {
         return hand;
     }
+
+    /**
+     * プレイヤーの手札を表示するメソッド。
+     */
+    public void showHand() {
+        System.out.println("Your hand is :");
+        for (Card card : this.hand) {
+            System.out.println(card.getSuit() + " " +card.getRank());
+        }
+        System.out.println();
+    }    
  
+    /**
+     * プレイヤーのスコアを設定するメソッド。
+     * @param _score 設定するスコアの値。
+     */    
     public void setScore(int _score) {
         this.score = _score;
     }
 
+    /**
+     * プレイヤーのスコアを返すメソッド。
+     * @return プレイヤーのスコアの値。
+     */    
     public int getScore() {
         return this.score;
     }
 
-    // スコアをファイルから読み込むメソッド
+    /**
+     * プレイヤーのスコアを表示するメソッド。
+     */    
+    public void showScore() {
+        System.out.println(name + "'s current score is :" + this.score + "\n");
+    }    
+
+    /**
+     * プレイヤーのスコアをファイルから読み込むメソッド。
+     */    
     public void loadScore() {
         File file = new File(getPath());
         if (!file.exists()) {
@@ -78,7 +143,9 @@ public class Player {
         saveScore();
     }
 
-    // スコアをファイルに書き込むメソッド
+    /**
+     * プレイヤーのスコアをファイルに保存するメソッド。
+     */    
     public void saveScore() {
         try {
             // ファイルの現在の内容を読み込む
@@ -99,6 +166,10 @@ public class Player {
         }
     }
 
+    /**
+     * プレイヤーのスコアファイルのパスを返すメソッド。
+     * @return プレイヤーのスコアファイルのパス。
+     */
     public String getPath() {
         String currentDir = System.getProperty("user.dir");
         String playerScorePath;
@@ -110,27 +181,10 @@ public class Player {
     }
         return playerScorePath;
     }
-    
-    public void showScore() {
-        System.out.println(name + "'s current score is :" + this.score + "\n");
-    }
 
-    public void setCurrentBet(int bet) {
-        this.currentBet = bet;
-    }
-
-    public int getCurrentBet() {
-        return this.currentBet;
-    }    
-
-    public void showHand() {
-        System.out.println("Your hand is :");
-        for (Card card : this.hand) {
-            System.out.println(card.getSuit() + " " +card.getRank());
-        }
-        System.out.println();
-    }
-
+    /**
+     * プレイヤーのデータ（ハンド）をリセットするメソッド。
+     */    
     public void resetData() {
         setStatus(true);
         this.hand = new ArrayList<Card>();

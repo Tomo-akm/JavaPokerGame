@@ -4,7 +4,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 
+/**
+ * ゲームのリセット機能をテストするクラス。
+ */
 class ResetGameTest {
+    /**
+     * ゲームのリセットが正しく機能することを確認するメソッド。
+     * プレイヤーの手札が正しく空になることを確認します。
+     */    
     @Test
     void resetGameTest () {
         Deck testDeck = new Deck();
