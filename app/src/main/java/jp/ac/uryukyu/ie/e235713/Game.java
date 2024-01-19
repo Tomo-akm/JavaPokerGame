@@ -276,9 +276,9 @@ public class Game {
         int action;
     
         if (currentTurnPot == 0) {
-            action = random.nextInt(2) + 1;  // ランダムに1（ベット）、2（チェック）を選択
+            action = random.nextInt(2) + 1;  // まだpotが０の時、ランダムに1（ベット）、2（チェック）を選択
         } else {
-            action = random.nextInt(6) + 1;  // ランダムに1と2,3,4,5は（コール）または6（フォールド）を選択（Botがコールする確率を高めにするため）
+            action = random.nextInt(6) + 1;  // potにscoreが賭けられてる時、ランダムに1と2,3,4,5は（コール）または6（フォールド）を選択（Botがコールする確率を高めにするため）
         }
         
         if (player.getStatus() == true) {
@@ -299,11 +299,7 @@ public class Game {
                 }
                 break;
             case 3:
-                call(bot);
-                break;
             case 4:
-                call(bot);
-                break;
             case 5:
                 call(bot);
                 break;
